@@ -1,0 +1,10 @@
+HALLAZGOS Y CONCLUSIONES DEL EJERCICIO
+
+1. Herramienta Seleccionada: Se eligió Karate DSL debido a que permite integrar
+   validaciones de esquema y encadenamiento de servicios de forma nativa.
+2. Hallazgos Técnicos: La API de PetStore cumple con los estándares REST,
+   respondiendo con códigos 200 en operaciones exitosas y 404 para recursos eliminados.
+3. Cobertura: Se cubrió el flujo completo (CRUD): Creación, Consulta,
+   Actualización y Eliminación.
+4. Escalabilidad: El proyecto sigue la estructura estándar de Maven, lo que
+   permite integrarlo fácilmente en pipelines de CI/CD (Azure DevOps / Jenkins).
