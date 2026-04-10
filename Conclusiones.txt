@@ -1,10 +1,39 @@
-HALLAZGOS Y CONCLUSIONES DEL EJERCICIO
+================================================================
+  CONCLUSIONES Y HALLAZGOS - AUTOMATIZACIÓN API REST PETSTORE
+  Candidato : Juan Almonacid
+  Empresa   : Sofka Technologies
+  Fecha     : Abril 2026
+================================================================
 
-1. Herramienta Seleccionada: Se eligió Karate DSL debido a que permite integrar
-   validaciones de esquema y encadenamiento de servicios de forma nativa.
-2. Hallazgos Técnicos: La API de PetStore cumple con los estándares REST,
-   respondiendo con códigos 200 en operaciones exitosas y 404 para recursos eliminados.
-3. Cobertura: Se cubrió el flujo completo (CRUD): Creación, Consulta,
-   Actualización y Eliminación.
-4. Escalabilidad: El proyecto sigue la estructura estándar de Maven, lo que
-   permite integrarlo fácilmente en pipelines de CI/CD (Azure DevOps / Jenkins).
+HALLAZGOS TÉCNICOS
+------------------
+
+1. IDENTIFICADOR DE USUARIO DINÁMICO
+   Al crear un usuario se debe proveer un ID único. Usar un ID
+   fijo entre ejecuciones puede causar colisiones con datos
+   previamente creados por otros consumidores de la API pública.
+ 
+   Consideración aplicada: se utilizó un ID generado de forma
+   controlada para garantizar unicidad en cada ejecución y evitar
+   interferencias con registros existentes.
+2. RESPUESTAS HTTP NO ESTÁNDAR
+   Algunas operaciones de la API de PetStore retornan código HTTP
+   200 incluso en casos donde se esperaría un 404 o un error
+   explícito (por ejemplo, al buscar un usuario recién eliminado).
+   Esto es una particularidad del entorno de demo y no representa
+   un comportamiento estándar de una API REST productiva.
+ 
+   Consideración aplicada: las validaciones se ajustaron al
+   comportamiento real observado de la API, verificando tanto el
+   código de respuesta como el contenido del body.
+3. ENCADENAMIENTO DE VARIABLES ENTRE ESCENARIOS
+   Para que el flujo funcione de forma coherente (buscar el mismo
+   usuario que fue creado, actualizar sus datos y luego
+   eliminarlo), fue necesario compartir el identificador del
+   usuario entre los distintos escenarios del feature.
+ 
+   Solución aplicada: Karate permite compartir variables entre
+   escenarios dentro del mismo feature usando el Background o
+   pasando valores a través del contexto, lo que facilita el
+   encadenamiento sin necesidad de hardcodear datos en cada paso.
+================================================================
